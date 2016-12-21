@@ -1,0 +1,54 @@
+<div class="container">
+ <div class="search-box">
+  <form class="form-inline">
+    <div class="input-group">
+      <span class="input-group-addon"><span class="fa fa-map-marker" aria-hidden="true"></span></span>
+      <input type="text" class="form-control" name="city"  placeholder="Origin City" [(ngModel)]="origin" [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatter" aria-label="My City">
+
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <label class="input-group-addon" for="dp">Departure Date</label>
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="departureDate" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-addon" (click)="d.toggle()" >
+           <span class="fa fa-calendar" aria-hidden="true"></span>
+          </div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-group-addon" for="dpr">Return Date</label>
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dpr" [(ngModel)]="returnDate" ngbDatepicker #d2="ngbDatepicker">
+        <div class="input-group-addon" (click)="d2.toggle()" >
+           <span class="fa fa-calendar" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-addon">$</span>
+        <input type="text" class="form-control" name="badget" [(ngModel)]="badget"  placeholder="Your badget" aria-label="Amount(to the nearest dollar)">
+        <span class="input-group-addon">.00</span>
+      </div>
+
+      <div class="input-group">
+        <button class="btn btn-primary" (click)="getPlaces()"> Search Places </button>
+      </div>
+    </div>
+  </form>
+
+  <hr/>
+  <div class="panel panel-primary" *ngIf="places.length > 0">
+    <div class="panel-heading">
+       <h3 class="panel-title">Places to go with less then {{badget}} $</h3>
+     </div>
+ <div class="panel-body">
+   <div id="result" class="container">
+    <div class="row destination" *ngFor="let item of places; let i = index">
+     <div class="col-md-1">{{i+1}}</div><div class="col-md-4 alert-success">Price : {{item.LowestFare}} </div><div class="col-md-6">Destination : {{item.DestinationLocation}} ,{{item.Location}}</div>
+    </div>
+    </div>
+ </div>
+</div>
+
+</div>
+<div>
